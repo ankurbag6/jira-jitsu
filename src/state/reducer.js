@@ -1,6 +1,6 @@
-const initialState = { status: 'idle', items: [], error: null };
+export const initialState = { status: 'idle', items: [], error: null };
 
-function reducer(state, action) {
+export function reducer(state, action) {
     switch(action.type) {
         case "FETCH_START":
             return {...state, status: 'loading'};
