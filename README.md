@@ -1,16 +1,37 @@
-# React + Vite
+# jira-jitsu
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+A small React playground for practicing custom hooks and state patterns, built with Vite.
 
-Currently, two official plugins are available:
+## Tutorials
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Each tutorial is a component in `src/components/` and they all render together in `App.jsx`.
 
-## React Compiler
+| Tutorial | Topic | Files |
+| --- | --- | --- |
+| 1 | Fetching data with a custom `useFetch` hook backed by `useReducer` (loading / success / error states) | `Tutorial1.jsx`, `hooks/useFetch.js`, `state/reducer.js` |
+| 2 | Debouncing input with `useDebounce` | `Tutorial2.jsx`, `hooks/useDebounce.js` |
+| 3 | Timers with `useInterval`, compared to a hand-rolled `useEffect` + `setTimeout` version | `Tutorial3.jsx`, `hooks/useInterval.js` |
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Project structure
 
-## Expanding the Oxlint configuration
+```
+src/
+  api/mock.js        # mockFetch: fake API with delay and random failures
+  components/        # Tutorial components
+  hooks/             # Custom hooks (useFetch, useDebounce, useInterval)
+  state/reducer.js   # Reducer for fetch status
+```
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+## Getting started
+
+```bash
+npm install
+npm run dev      # start the dev server
+npm run build    # production build
+npm run preview  # preview the build
+npm run lint     # lint with oxlint
+```
+
+## Stack
+
+React 19, Vite, oxlint, and Vitest + Testing Library (installed but no tests yet).
