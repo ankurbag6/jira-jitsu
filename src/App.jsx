@@ -5,6 +5,7 @@ import TicTacToe from "./components/TicTacToe/TicTacToe";
 //import Tutorial1 from "./components/Tutorial1";
 import Tutorial2 from "./components/Tutorial2";
 import Tutorial3 from "./components/Tutorial3";
+import Games from "./components/TicTacToe/Games"
 
 export default function App() {
   return (
@@ -21,7 +22,8 @@ export default function App() {
       {/* <IssuesTable /> */}
 
       {/** TicTacToe */}
-      <TicTacToe size={3} />
+      {/* <TicTacToe size={3} /> */}
+      <Games numofBoards={3} />
     </>
   );
 }

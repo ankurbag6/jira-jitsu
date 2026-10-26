@@ -9,47 +9,65 @@
 import { useState } from "react";
 
 const LINES = [
-  [0, 1, 2], [3, 4, 5], [6, 7, 8], // rows
-  [0, 3, 6], [1, 4, 7], [2, 5, 8], // columns
-  [0, 4, 8], [2, 4, 6],            // diagonals
+  [0, 1, 2],
+  [3, 4, 5],
+  [6, 7, 8], // rows
+  [0, 3, 6],
+  [1, 4, 7],
+  [2, 5, 8], // columns
+  [0, 4, 8],
+  [2, 4, 6], // diagonals
 ];
 
 export function getWinner(board) {
   for (const [a, b, c] of LINES) {
-    if (board[a] && board[a] === board[b] && board[a] === board[c]) return board[a];
+    if (board[a] && board[a] === board[b] && board[a] === board[c])
+      return board[a];
   }
   return null;
 }
 
-export default function TicTacToe({ size }) {
+function randomEmptyCell(board) {
+  const empty = board
+    .map((cell, i) => (cell === null ? i : null))
+    .filter((i) => i !== null);
+  return empty[Math.floor(Math.random() * empty.length)];
+}
+
+export default function TicTacToe({ label = "", size = 3, onGameEnd }) {
   const gridSize = size * size;
   const [board, setBoard] = useState(() => Array(gridSize).fill(null));
 
-  const moves =  board.filter(cell => cell !== null).length;
-  const currentPlayer = moves %2 === 0 ? "X" : "O";
+  const moves = board.filter((cell) => cell !== null).length;
+  const currentPlayer = moves % 2 === 0 ? "X" : "O";
   const lineWinner = getWinner(board);
-  const winner = lineWinner ?? (moves === gridSize ? "Draw" : null);
+  const winner = lineWinner ?? (moves === gridSize ? "draw" : null);
   const handleClick = (idx) => {
-    if (board[idx] !== null || winner) return;
+    if (winner || board[idx] !== null || currentPlayer !== "X") return; // game over or cell taken: ignore
 
-    setBoard((prev) => {
-      const next = [...prev];
-      next[idx] = currentPlayer;
-      return next;
-    });
+    //BOT
+    const next = [...board];
+    next[idx] = "X";
+      if (!getWinner(next, size) && next.some((c) => c === null)) {
+      next[randomEmptyCell(next)] = "O";
+    }
+    setBoard(next);
 
+    const nextFilled = moves + 1;
+    const result = getWinner(next) ?? (nextFilled === gridSize ? "draw" : null);
+    if (result) onGameEnd?.(result);
   };
 
   return (
     <>
-      <h1>Tic-Tac-Toe</h1>
+      <h2> {label} </h2>
       <p aria-live="polite">Current Player : {currentPlayer}</p>
       <p aria-live="polite">Winner : {winner}</p>
       <section
         style={{
           display: "grid",
           gridTemplateColumns: `repeat(${size}, 40px)`,
-          gap: 4 
+          gap: 4,
         }}
         aria-label="Tic tac toe"
       >
