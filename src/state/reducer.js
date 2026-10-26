@@ -12,9 +12,3 @@ export function reducer(state, action) {
             return state;
     }
 }
-
-console.log(reducer(initialState, { type: 'FETCH_START' }));
-
-console.log(reducer(initialState, { type: 'FETCH_SUCCESS', payload: [1, 2] }));
-
-console.log(reducer(initialState, { type: 'FETCH_ERROR', error: "Error: Network failed!" }));
