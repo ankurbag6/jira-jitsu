@@ -1,5 +1,6 @@
 import { FileExplorer } from "./components/FileExplorer/FileExplorer";
 import { FileExplorerAPIVersion } from "./components/FileExplorer/FileExplorerAPIVersion";
+import TicTacToe from "./components/TicTacToe/TicTacToe";
 //import IssuesTable from "./components/Jira/IssuesTable";
 //import Tutorial1 from "./components/Tutorial1";
 import Tutorial2 from "./components/Tutorial2";
@@ -14,10 +15,13 @@ export default function App() {
 
       {/* File Explorer */}
       {/* <FileExplorer /> */}
-      <FileExplorerAPIVersion />
+      {/* <FileExplorerAPIVersion /> */}
 
       {/** JIRA Issues */}
       {/* <IssuesTable /> */}
+
+      {/** TicTacToe */}
+      <TicTacToe size={3} />
     </>
   );
 }
